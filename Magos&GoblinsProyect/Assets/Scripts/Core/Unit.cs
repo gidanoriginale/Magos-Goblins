@@ -46,8 +46,11 @@ public abstract class Unit : MonoBehaviour
 
     public int HitPoints;
     public int AttackRange;
-    public int AttackFactor;
-    public int DefenceFactor;
+    public int AttackBonus;
+	public int WeaponDiceNumber;
+	public int WeaponDiceSize;
+	public int WeaponBonusDmg;
+    public int DefenseFactor;
     /// <summary>
     /// Determines how far on the grid the unit can move.
     /// </summary>
@@ -177,32 +180,34 @@ public abstract class Unit : MonoBehaviour
 
         MarkAsAttacking(other);
         ActionPoints--;
-        other.Defend(this, AttackFactor);
+		other.Defend(this, UnityEngine.Random.Range(WeaponDiceNumber,WeaponDiceNumber*WeaponDiceSize)+WeaponBonusDmg);
 
-        if (ActionPoints == 0)
+		if (ActionPoints <= 0 && MovementPoints <=0)
         {
             SetState(new UnitStateMarkedAsFinished(this));
-            MovementPoints = 0;
+            //MovementPoints = 0;
         }  
     }
     /// <summary>
     /// Attacking unit calls Defend method on defending unit. 
     /// </summary>
     protected virtual void Defend(Unit other, int damage)
-    {
-        MarkAsDefending(other);
-        HitPoints -= Mathf.Clamp(damage - DefenceFactor, 1, damage);  //Damage is calculated by subtracting attack factor of attacker and defence factor of defender. If result is below 1, it is set to 1.
-                                                                      //This behaviour can be overridden in derived classes.
-        if (UnitAttacked != null)
-            UnitAttacked.Invoke(this, new AttackEventArgs(other, this, damage));
+	{
+		
 
-        if (HitPoints <= 0)
-        {
-            if (UnitDestroyed != null)
-                UnitDestroyed.Invoke(this, new AttackEventArgs(other, this, damage));
-            OnDestroyed();
-        }
-    }
+		if (UnityEngine.Random.Range (1, 20) + other.AttackBonus >= DefenseFactor) {
+			MarkAsDefending (other);
+			HitPoints -= damage;
+			if (UnitAttacked != null)
+				UnitAttacked.Invoke (this, new AttackEventArgs (other, this, damage));
+
+			if (HitPoints <= 0) {
+				if (UnitDestroyed != null)
+					UnitDestroyed.Invoke (this, new AttackEventArgs (other, this, damage));
+				OnDestroyed ();
+			}
+		} 
+	}
 
     public virtual void Move(Cell destinationCell, List<Cell> path)
     {
