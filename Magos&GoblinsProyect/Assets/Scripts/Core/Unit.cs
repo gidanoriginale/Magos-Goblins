@@ -193,8 +193,6 @@ public abstract class Unit : MonoBehaviour
     /// </summary>
     protected virtual void Defend(Unit other, int damage)
 	{
-		
-
 		if (UnityEngine.Random.Range (1, 20) + other.AttackBonus >= DefenseFactor) {
 			MarkAsDefending (other);
 			HitPoints -= damage;

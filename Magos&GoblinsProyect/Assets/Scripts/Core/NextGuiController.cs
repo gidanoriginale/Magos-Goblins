@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class NextGuiController : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class NextGuiController : MonoBehaviour
     void Start()
     {
         CellGrid.GameStarted += OnGameStarted;
-        CellGrid.TurnEnded += OnTurnEnded;
+//        CellGrid.TurnEnded += OnTurnEnded;
         CellGrid.GameEnded += OnGameEnded;
     }
 
@@ -34,16 +35,16 @@ public class NextGuiController : MonoBehaviour
         }
     }
 
-    private void OnTurnEnded(object sender, EventArgs e)
-    {
-        NextTurnButton.interactable = ((sender as CellGrid).CurrentPlayer is HumanPlayer);
-    }
+ //   private void OnTurnEnded(object sender, EventArgs e)
+   // {
+ //       NextTurnButton.interactable = ((sender as CellGrid).CurrentPlayer is HumanPlayer);
+   // }
     private void OnGameEnded(object sender, EventArgs e)
     {
         _gameOverPanel = Instantiate(GameOverPanel);
-        _gameOverPanel.transform.Find("InfoText").GetComponent<Text>().text = "Player " + ((sender as CellGrid).CurrentPlayerNumber + 1) + "\nwins!";
+//        _gameOverPanel.transform.Find("InfoText").GetComponent<Text>().text = "Player " + ((sender as CellGrid).CurrentPlayerNumber + 1) + "\nwins!";
         
-        _gameOverPanel.transform.Find("DismissButton").GetComponent<Button>().onClick.AddListener(DismissPanel);
+ //       _gameOverPanel.transform.Find("DismissButton").GetComponent<Button>().onClick.AddListener(DismissPanel);
  
         _gameOverPanel.GetComponent<RectTransform>().SetParent(Canvas.GetComponent<RectTransform>(), false);
 
@@ -76,19 +77,27 @@ public class NextGuiController : MonoBehaviour
 
         _infoPanel.transform.Find("Name").GetComponent<Text>().text = unit.UnitName;
         _infoPanel.transform.Find("HitPoints").Find("Image").transform.localScale = new Vector3(hpScale,1,1);
-        _infoPanel.transform.Find("Attack").Find("Image").transform.localScale = new Vector3((float)unit.AttackBonus/10.0f,1,1);
-        _infoPanel.transform.Find("Defence").Find("Image").transform.localScale = new Vector3((float)unit.DefenseFactor / 10.0f, 1, 1);
+
 
         _infoPanel.GetComponent<RectTransform>().SetParent(Canvas.GetComponent<RectTransform>(),false);
     }
 
-    public void DismissPanel()
-    {
-        Destroy(_gameOverPanel);
-    }
-    public void RestartLevel()
-    {
-        Application.LoadLevel(Application.loadedLevel);
-    }
+   // public void DismissPanel()
+    //{
+ //       Destroy(_gameOverPanel);
+    //}
+
+	void OnGUI () {
+
+		if(GUI.Button(new Rect(Screen.width-120, 10, 100, 50),"Restart")){
+
+			SceneManager.LoadScene("Scenes/TestField");
+		}
+
+		if(GUI.Button(new Rect(20, 10, 100, 50),"End Turn")){
+
+			CellGrid.EndTurn();
+		}
+	}
 }
 
