@@ -5,11 +5,15 @@ using System.Collections.Generic;
 public class selectionScreenController : MonoBehaviour {
 
 	private GameObject[] menuOptions;
+	public GameObject startingMenu;
 	public GameObject newGame;
 	public GameObject continueGame;
 	public GameObject settings;
 	public GameObject exitGame;
+	public GameObject yesOption;
+	public GameObject noOption;
 	private int selectedIndex = 0;
+	private Vector2 lastPosition;
 
 	void Start() {
 		menuOptions = new GameObject[4];
@@ -20,21 +24,43 @@ public class selectionScreenController : MonoBehaviour {
 	}
 
 	void Update() {
-		if (Input.GetKeyDown(KeyCode.DownArrow)) {
-			selectedIndex = menuSelection(menuOptions, selectedIndex, "down");
-		}
+		if (startingMenu.GetComponent<menuScript> ().quitMenu.enabled == false) {
+			if (transform.localPosition.x != newGame.transform.localPosition.x -80 && transform.parent != newGame.transform.parent) {
+				transform.parent = newGame.transform.parent;
+				transform.localPosition = new Vector2 (lastPosition.x, lastPosition.y);;
+			}
+			if (Input.GetKeyDown (KeyCode.DownArrow)) {
+				selectedIndex = menuSelection (menuOptions, selectedIndex, "down");
+			}
 
-		if (Input.GetKeyDown(KeyCode.UpArrow)) {
-			selectedIndex = menuSelection(menuOptions, selectedIndex, "up");
-		}
+			if (Input.GetKeyDown (KeyCode.UpArrow)) {
+				selectedIndex = menuSelection (menuOptions, selectedIndex, "up");
+			}
 
-		if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)) {
-			handleSelection();
+			if (Input.GetKeyDown (KeyCode.Space) || Input.GetKeyDown (KeyCode.Return)) {
+				handleSelection ();
+			}
+		} else {
+			if (transform.localPosition.y != yesOption.transform.localPosition.y && transform.parent != yesOption.transform.parent) {
+				lastPosition = new Vector2(transform.localPosition.x, transform.localPosition.y);
+				transform.parent = yesOption.transform.parent;
+				transform.localPosition = new Vector2 (noOption.transform.localPosition.x -1, noOption.transform.localPosition.y);
+			}
+			if (Input.GetKeyDown (KeyCode.RightArrow)) {
+				transform.localPosition = new Vector2 (noOption.transform.localPosition.x -1, noOption.transform.localPosition.y);
+			}
+			if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+				transform.localPosition = new Vector2 (yesOption.transform.localPosition.x -1, yesOption.transform.localPosition.y);
+			}
+			if (Input.GetKeyDown (KeyCode.Space) || Input.GetKeyDown (KeyCode.Return)) {
+				if (transform.localPosition.x == yesOption.transform.localPosition.x - 1) {
+					startingMenu.GetComponent<menuScript> ().ExitGame();
+				} else {
+					startingMenu.GetComponent<menuScript> ().NoPress();
+				}
+			}
 		}
-		//Debug.Log (selectedIndex);
 	}
-
-
 
 	private int menuSelection (GameObject[] menuItems, int selectedItem, string direction) {
 
@@ -60,36 +86,23 @@ public class selectionScreenController : MonoBehaviour {
 	}
 
 	void handleSelection() {
-		//GUI.FocusControl (menuOptions[selectedIndex]);
+		GUI.FocusControl (menuOptions[selectedIndex].name);
+		switch (menuOptions[selectedIndex].name) {
+		case "New Game Text":
+			startingMenu.GetComponent<menuScript> ().StartGame ();
+			break;
+		case "Continue Text":
+			//Loading Screen
+			break;
+		case "Settings Text":
+			//Show settings
+			break;
+		case "Exit Text":
+			startingMenu.GetComponent<menuScript> ().ExitPress ();
+			break;
+		default:
+			break;
+		}
 		Debug.Log("Selected name: " + menuOptions[selectedIndex].name + " / id: " +selectedIndex);
 	}
-//
-//	function OnGUI ()
-//	{
-//		GUI.SetNextControlName ("Tutorial");
-//		if (GUI.Button(Rect(10,70,170,30), "Button 1 (tutorial,id:0)")) {
-//			selectedIndex = 0;
-//			handleSelection();
-//		}
-//
-//		GUI.SetNextControlName ("Play");
-//		if (GUI.Button(Rect(10,100,170,30), "Button 2 (play, id:1)")) {
-//			selectedIndex = 1;
-//			handleSelection();
-//		}
-//
-//		GUI.SetNextControlName ("High Scores");
-//		if (GUI.Button(Rect(10,130,170,30), "Button 3 (high scores, id:2)")) {
-//			selectedIndex = 2;
-//			handleSelection();
-//		}
-//
-//		GUI.SetNextControlName ("Exit");
-//		if (GUI.Button(Rect(10,160,170,30), "Button 4 (exit, id:3)")) {
-//			selectedIndex = 3;
-//			handleSelection();
-//		}
-//
-//		GUI.FocusControl (menuOptions[selectedIndex]);
-//	}
 }
