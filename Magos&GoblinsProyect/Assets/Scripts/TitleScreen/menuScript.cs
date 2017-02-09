@@ -3,13 +3,14 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class menuScript : MonoBehaviour {
+public class menuScript : MonoBehaviour{
 
 	public Canvas quitMenu;
 	public Button startText;
 	public Button continueText;
 	public Button settingsText;
 	public Button exitText;
+	public Image goblinCursor;
 
 	// Use this for initialization
 	void Start () {
@@ -18,7 +19,12 @@ public class menuScript : MonoBehaviour {
 		continueText = continueText.GetComponent<Button>();
 		settingsText = settingsText.GetComponent<Button> ();
 		exitText = exitText.GetComponent<Button>();
+		goblinCursor = goblinCursor.GetComponent<Image>();
 		quitMenu.enabled = false;
+	}
+
+	void Update() {
+
 	}
 
 	public void ExitPress() {
@@ -27,6 +33,7 @@ public class menuScript : MonoBehaviour {
 		continueText.enabled = false;
 		settingsText.enabled = false;
 		exitText.enabled = false;
+//		goblinCursor.enabled = false;
 	}
 
 	public void NoPress() {
@@ -35,9 +42,10 @@ public class menuScript : MonoBehaviour {
 		continueText.enabled = true;
 		settingsText.enabled = true;
 		exitText.enabled = true;
+//		goblinCursor.enabled = true;
 	}
 
-	public void StartLevel(){
+	public void StartGame(){
 		SceneManager.LoadScene ("TestField");
 	}
 
