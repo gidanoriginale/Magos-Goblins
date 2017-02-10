@@ -7,8 +7,7 @@ public class PartyManager : MonoBehaviour {
 	public ArrayList party;
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start () {	
 	}
 	
 	// Update is called once per frame
