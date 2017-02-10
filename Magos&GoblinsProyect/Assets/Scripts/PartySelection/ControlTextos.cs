@@ -1,11 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using System.Collections.Generic;
 
 public class ControlTextos : MonoBehaviour {
-
-	public ArrayList party;
 
 	public Text wName;
 	public Text wText;
@@ -67,10 +64,6 @@ public class ControlTextos : MonoBehaviour {
 		resetText ();
 		cName.enabled = true;
 		cText.enabled = true;
-
-	}
-	public void summonWarrior() {
-	
 
 	}
 }
