@@ -6,10 +6,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{AE325493-84BF-E6EC-E241-DB4B5A3F5E66}</ProjectGuid>
+    <ProjectGuid>{63006199-F621-C8D3-2B46-ABDAE5116ABA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -45,52 +45,59 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Editor\CustomObstacleGeneratorHelper.cs" />
-     <Compile Include="Assets\Scripts\Editor\CustomUnitGeneratorHelper.cs" />
-     <Compile Include="Assets\Scripts\Editor\GridGeneratorHelper.cs" />
- <Reference Include="UnityEditor.Advertisements">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
- </Reference>
- <Reference Include="nunit.framework">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/EditorTestsRunner/Editor/nunit.framework.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.EditorTestsRunner">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/EditorTestsRunner/Editor/UnityEditor.EditorTestsRunner.dll</HintPath>
- </Reference>
+     <Compile Include="Assets\Scripts\Core\AStarPathfinding.cs" />
+     <Compile Include="Assets\Scripts\Core\BreadthFirstSearch.cs" />
+     <Compile Include="Assets\Scripts\Core\Buff.cs" />
+     <Compile Include="Assets\Scripts\Core\Cell.cs" />
+     <Compile Include="Assets\Scripts\Core\CellGrid.cs" />
+     <Compile Include="Assets\Scripts\Core\CellGridState.cs" />
+     <Compile Include="Assets\Scripts\Core\CellGridStateAiTurn.cs" />
+     <Compile Include="Assets\Scripts\Core\CellGridStateGameOver.cs" />
+     <Compile Include="Assets\Scripts\Core\CellGridStateTurnChanging.cs" />
+     <Compile Include="Assets\Scripts\Core\CellGridStateUnitSelected.cs" />
+     <Compile Include="Assets\Scripts\Core\CellGridStateWaitingForInput.cs" />
+     <Compile Include="Assets\Scripts\Core\CustomObstacleGenerator.cs" />
+     <Compile Include="Assets\Scripts\Core\CustomUnitGenerator.cs" />
+     <Compile Include="Assets\Scripts\Core\DijkstraPathfinding.cs" />
+     <Compile Include="Assets\Scripts\Core\EquilateralHexGridGenerator.cs" />
+     <Compile Include="Assets\Scripts\Core\GenericUnit.cs" />
+     <Compile Include="Assets\Scripts\Core\GreedyBestFirstSearch.cs" />
+     <Compile Include="Assets\Scripts\Core\HeapPriorityQueue.cs" />
+     <Compile Include="Assets\Scripts\Core\Hexagon.cs" />
+     <Compile Include="Assets\Scripts\Core\HexagonalHexGridGenerator.cs" />
+     <Compile Include="Assets\Scripts\Core\HumanPlayer.cs" />
+     <Compile Include="Assets\Scripts\Core\ICellGridGenerator.cs" />
+     <Compile Include="Assets\Scripts\Core\IGraphNode.cs" />
+     <Compile Include="Assets\Scripts\Core\IPathfinding.cs" />
+     <Compile Include="Assets\Scripts\Core\IPriorityQueue.cs" />
+     <Compile Include="Assets\Scripts\Core\IUnitGenerator.cs" />
+     <Compile Include="Assets\Scripts\Core\ListPriorityQueue.cs" />
+     <Compile Include="Assets\Scripts\Core\MySquare.cs" />
+     <Compile Include="Assets\Scripts\Core\NaiveAiPlayer.cs" />
+     <Compile Include="Assets\Scripts\Core\NextGuiController.cs" />
+     <Compile Include="Assets\Scripts\Core\Player.cs" />
+     <Compile Include="Assets\Scripts\Core\RandomUnitGenerator.cs" />
+     <Compile Include="Assets\Scripts\Core\RectangularHexGridGenerator.cs" />
+     <Compile Include="Assets\Scripts\Core\RectangularSquareGridGenerator.cs" />
+     <Compile Include="Assets\Scripts\Core\Square.cs" />
+     <Compile Include="Assets\Scripts\Core\TriangularHexGridGenerator.cs" />
+     <Compile Include="Assets\Scripts\Core\Unit.cs" />
+     <Compile Include="Assets\Scripts\Core\UnitState.cs" />
+     <Compile Include="Assets\Scripts\Core\UnitStateMarkedAsFinished.cs" />
+     <Compile Include="Assets\Scripts\Core\UnitStateMarkedAsFriendly.cs" />
+     <Compile Include="Assets\Scripts\Core\UnitStateMarkedAsReachableEnemy.cs" />
+     <Compile Include="Assets\Scripts\Core\UnitStateMarkedAsSelected.cs" />
+     <Compile Include="Assets\Scripts\Core\UnitStateNormal.cs" />
+     <Compile Include="Assets\Scripts\PartyManager.cs" />
+     <Compile Include="Assets\Scripts\PartySelection\ControlTextos.cs" />
+     <Compile Include="Assets\Scripts\TitleScreen\menuScript.cs" />
+     <Compile Include="Assets\Scripts\TitleScreen\selectionScreenController.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.UI">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
- <Reference Include="UnityEditor.Networking">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.TreeEditor">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.Graphs">
- <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.Android.Extensions">
- <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.Metro.Extensions">
- <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.Metro.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.WebGL.Extensions">
- <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.WindowsStandalone.Extensions">
- <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
- </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{63006199-F621-C8D3-2B46-ABDAE5116ABA}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
