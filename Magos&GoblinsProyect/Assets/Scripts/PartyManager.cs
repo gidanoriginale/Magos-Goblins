@@ -231,10 +231,12 @@ public class PartyManager : MonoBehaviour {
 
 	public void YesYes () {
 
+		DontDestroyOnLoad (this.gameObject);
+		SceneManager.LoadScene ("Introduction1");
 	}
 
 	public void NoNoNo () {
 
-
+		partyConfirmation.enabled = false;
 	}
 }
