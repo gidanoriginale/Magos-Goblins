@@ -79,7 +79,8 @@ public abstract class Unit : MonoBehaviour
     /// <summary>
     /// Method called after object instantiation to initialize fields etc. 
     /// </summary>
-    public virtual void Initialize()
+
+	public virtual void Initialize()
     {
         Buffs = new List<Buff>();
 
@@ -92,8 +93,13 @@ public abstract class Unit : MonoBehaviour
 
     protected virtual void OnMouseDown()
     {
-        if (UnitClicked != null)
-            UnitClicked.Invoke(this, new EventArgs());
+		if (UnitClicked != null) {
+			GameObject menuManager = GameObject.Find ("BattleMenuCanvas");
+			if (menuManager != null) {
+				menuManager.GetComponent<battleMenuManager> ().unitSelected = this.gameObject;
+			}
+			//UnitClicked.Invoke(this, new EventArgs());
+		}
     }
     protected virtual void OnMouseEnter()
     {
