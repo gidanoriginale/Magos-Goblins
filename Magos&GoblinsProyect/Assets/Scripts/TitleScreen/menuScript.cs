@@ -46,7 +46,7 @@ public class menuScript : MonoBehaviour{
 	}
 
 	public void StartGame(){
-		SceneManager.LoadScene ("TestField");
+		SceneManager.LoadScene ("PartySelection");
 	}
 
 	public void ExitGame() {

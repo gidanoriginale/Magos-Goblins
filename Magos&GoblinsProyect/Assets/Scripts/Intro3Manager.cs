@@ -3,11 +3,10 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+public class Intro3Manager : MonoBehaviour {
 
-public class Intro2Manager : MonoBehaviour {
-
-	private bool changeText=false;
 	public Text introText;
+	private bool changeText=false;
 
 	// Use this for initialization
 	void Start () {
@@ -19,7 +18,7 @@ public class Intro2Manager : MonoBehaviour {
 
 		if (Input.GetKeyDown (KeyCode.Space) || Input.GetMouseButtonDown(0)) {
 
-			introText.text = "The mission is about fighting a goblin invasion that is reaching the frontier town Svelge.";
+			introText.text = "Ten of them pounce to you all!";
 			Invoke ("nextPartOk", 0.5f);
 
 			if (changeText) {
@@ -28,15 +27,13 @@ public class Intro2Manager : MonoBehaviour {
 				if (partyManager != null) {
 					DontDestroyOnLoad (partyManager);
 				}
-				SceneManager.LoadScene ("Introduction3");
+				SceneManager.LoadScene ("FirstFight");
 			}
 		}
-
 	}
 
 	void nextPartOk(){
 
 		changeText = true;
 	}
-
 }

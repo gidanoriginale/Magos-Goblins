@@ -222,7 +222,6 @@ public class PartyManager : MonoBehaviour {
 
 	public void AcceptParty() {
 		
-		print (party.Count);
 		if (party.Count >= 3) {
 		
 			partyConfirmation.enabled = true;

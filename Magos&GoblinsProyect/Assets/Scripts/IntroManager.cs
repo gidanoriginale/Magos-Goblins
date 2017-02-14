@@ -16,10 +16,10 @@ public class IntroManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetKeyDown (KeyCode.Space)) {
+		if (Input.GetKeyDown (KeyCode.Space) || Input.GetMouseButtonDown(0)) {
 		
 			introText.text = "Those monsters are commanded by the Cirwyr's wizards of the court who got exiled because the king feared their magic. Now, they search for vengeance against the Kingdom who took away everything that belonged to them.";
-			Invoke ("nextPartOk", 1);
+			Invoke ("nextPartOk", 0.5f);
 
 			if (changeText) {
 
