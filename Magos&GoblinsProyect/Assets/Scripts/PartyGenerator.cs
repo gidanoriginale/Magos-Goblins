@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class PartyGenerator : MonoBehaviour {
 
@@ -16,8 +17,9 @@ public class PartyGenerator : MonoBehaviour {
 	public GameObject posicion4;
 
 	public ArrayList partyGen;
-
 	public GameObject unitParent;
+	private GameObject[] enemies;
+	public GameObject Canvas;
 
 	// Use this for initialization
 	void Start () {
@@ -44,6 +46,23 @@ public class PartyGenerator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
+		enemies = GameObject.FindGameObjectsWithTag ("Enemy");
+
+		if (enemies.Length < 1) {
+		
+			Invoke ("NextLvl", 1.5f);
+			Canvas.GetComponent<Canvas> ().enabled = true;
+		}
+	}
+
+	void NextLvl() {
+
+		GameObject partyManager = GameObject.Find ("PartyManager");
+		if (partyManager != null) {	
+
+			DontDestroyOnLoad (partyManager);
+		}
+		SceneManager.LoadScene ("Interlude");
 	}
 }

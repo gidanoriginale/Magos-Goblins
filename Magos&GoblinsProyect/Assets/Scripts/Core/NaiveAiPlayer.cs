@@ -40,7 +40,7 @@ public class NaiveAiPlayer : Player
             }//Looking for enemies that are in attack range.
             if (unitsInRange.Count != 0)
             {
-                var index = _rnd.Next(0, unitsInRange.Count);
+                int index = _rnd.Next(0, unitsInRange.Count);
                 unit.DealDamage(unitsInRange[index]);
                 yield return new WaitForSeconds(0.5f);
                 continue;

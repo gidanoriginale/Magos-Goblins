@@ -21,7 +21,7 @@ public class NextGuiController : MonoBehaviour
     {
         CellGrid.GameStarted += OnGameStarted;
 //        CellGrid.TurnEnded += OnTurnEnded;
-        CellGrid.GameEnded += OnGameEnded;
+//        CellGrid.GameEnded += OnGameEnded;
     }
 
     private void OnGameStarted(object sender, EventArgs e)
@@ -39,16 +39,16 @@ public class NextGuiController : MonoBehaviour
    // {
  //       NextTurnButton.interactable = ((sender as CellGrid).CurrentPlayer is HumanPlayer);
    // }
-    private void OnGameEnded(object sender, EventArgs e)
-    {
-        _gameOverPanel = Instantiate(GameOverPanel);
-//        _gameOverPanel.transform.Find("InfoText").GetComponent<Text>().text = "Player " + ((sender as CellGrid).CurrentPlayerNumber + 1) + "\nwins!";
-        
- //       _gameOverPanel.transform.Find("DismissButton").GetComponent<Button>().onClick.AddListener(DismissPanel);
- 
-        _gameOverPanel.GetComponent<RectTransform>().SetParent(Canvas.GetComponent<RectTransform>(), false);
-
-    }
+//    private void OnGameEnded(object sender, EventArgs e)
+//    {
+//        _gameOverPanel = Instantiate(GameOverPanel);
+////        _gameOverPanel.transform.Find("InfoText").GetComponent<Text>().text = "Player " + ((sender as CellGrid).CurrentPlayerNumber + 1) + "\nwins!";
+//        
+// //       _gameOverPanel.transform.Find("DismissButton").GetComponent<Button>().onClick.AddListener(DismissPanel);
+// 
+//        _gameOverPanel.GetComponent<RectTransform>().SetParent(Canvas.GetComponent<RectTransform>(), false);
+//
+//    }
 
     private void OnUnitAttacked(object sender, AttackEventArgs e)
     {
@@ -91,7 +91,7 @@ public class NextGuiController : MonoBehaviour
 
 		if(GUI.Button(new Rect(Screen.width-120, 10, 100, 50),"Restart")){
 
-			SceneManager.LoadScene("Scenes/TestField");
+			SceneManager.LoadScene("Scenes/FirstFight");
 		}
 
 		if(GUI.Button(new Rect(20, 10, 100, 50),"End Turn")){
