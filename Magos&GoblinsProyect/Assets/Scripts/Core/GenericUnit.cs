@@ -55,6 +55,7 @@ public class GenericUnit : Unit
     }
     private IEnumerator Glow(Color color, float cooloutTime)
     {
+		//var _renderer = GetComponent<SpriteRenderer>();
         var _renderer = transform.Find("Marker").GetComponent<SpriteRenderer>();
         float startTime = Time.time;
 
@@ -64,6 +65,7 @@ public class GenericUnit : Unit
             yield return 0;
         }
 
+		//_renderer.color = Color.white;
         _renderer.color = Color.clear;
     }
     private IEnumerator Pulse(float breakTime, float delay, float scaleFactor)
