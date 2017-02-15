@@ -70,7 +70,7 @@ public class GenericUnit : Unit
     }
     private IEnumerator Pulse(float breakTime, float delay, float scaleFactor)
     {
-        var baseScale = transform.localScale;
+        //var baseScale = transform.localScale;
         while (true)
         {
             float growingTime = Time.time;
