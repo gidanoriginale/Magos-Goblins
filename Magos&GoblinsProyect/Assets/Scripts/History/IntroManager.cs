@@ -18,7 +18,7 @@ public class IntroManager : MonoBehaviour {
 
 		if (Input.GetKeyDown (KeyCode.Space) || Input.GetMouseButtonDown(0)) {
 		
-			introText.text = "Those monsters are commanded by the Cirwyr's wizards of the court who got exiled because the king feared their magic. Now, they search for vengeance against the Kingdom who took away everything that belonged to them.";
+			introText.text = "Those monsters are commanded by the Cirwyr's wizards of the court who got exiled because the king feared their magic. Now, they are searching for vengeance against the Kingdom who took away everything that belonged to them.";
 			Invoke ("nextPartOk", 0.5f);
 
 			if (changeText) {
