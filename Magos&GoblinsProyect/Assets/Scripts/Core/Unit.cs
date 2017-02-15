@@ -73,6 +73,7 @@ public abstract class Unit : MonoBehaviour
     /// Indicates if movement animation is playing.
     /// </summary>
     public bool isMoving { get; set; }
+	public bool unitIsAttacking;
 
     private static IPathfinding _pathfinder = new AStarPathfinding();
 
@@ -82,6 +83,7 @@ public abstract class Unit : MonoBehaviour
 
 	public virtual void Initialize()
     {
+		unitIsAttacking = false;
         Buffs = new List<Buff>();
 
         UnitState = new UnitStateNormal(this);
@@ -91,14 +93,33 @@ public abstract class Unit : MonoBehaviour
         TotalActionPoints = ActionPoints;
     }
 
-    protected virtual void OnMouseDown()
+	public void moveUnit() {
+		if (UnitClicked != null) {
+			UnitClicked.Invoke(this, new EventArgs());
+		}
+	}
+
+	public void unitDealsDamage() {
+		if (UnitClicked != null) {
+			UnitClicked.Invoke(this, new EventArgs());
+		}
+	}
+
+    public virtual void OnMouseDown()
     {
 		if (UnitClicked != null) {
 			GameObject menuManager = GameObject.Find ("BattleMenuCanvas");
 			if (menuManager != null) {
-				menuManager.GetComponent<battleMenuManager> ().unitSelected = this.gameObject;
+				GameObject cellGrid = GameObject.Find ("CellGrid");
+				if (cellGrid != null) {
+					if (cellGrid.GetComponent<CellGrid>().CurrentPlayerNumber == this.PlayerNumber) {
+						menuManager.GetComponent<battleMenuManager> ().unitSelected = this.gameObject;
+					}
+				}
 			}
-			//UnitClicked.Invoke(this, new EventArgs());
+//			if (unitIsAttacking) {
+//				UnitClicked.Invoke(this, new EventArgs());
+//			}
 		}
     }
     protected virtual void OnMouseEnter()
@@ -149,8 +170,9 @@ public abstract class Unit : MonoBehaviour
     public virtual void OnUnitSelected()
     {
         SetState(new UnitStateMarkedAsSelected(this));
-        if (UnitSelected != null)
-            UnitSelected.Invoke(this, new EventArgs());
+		if (UnitSelected != null) {
+			UnitSelected.Invoke(this, new EventArgs());
+		}
     }
     /// <summary>
     /// Method is called when unit is deselected.
@@ -158,8 +180,10 @@ public abstract class Unit : MonoBehaviour
     public virtual void OnUnitDeselected()
     {
         SetState(new UnitStateMarkedAsFriendly(this));
-        if (UnitDeselected != null)
-            UnitDeselected.Invoke(this, new EventArgs());
+		if (UnitDeselected != null) {
+			UnitDeselected.Invoke(this, new EventArgs());
+		}
+            
     }
 
     /// <summary>
@@ -367,6 +391,7 @@ public class MovementEventArgs : EventArgs
 }
 public class AttackEventArgs : EventArgs
 {
+	
     public Unit Attacker;
     public Unit Defender;
 

@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+
 
 class CellGridStateUnitSelected : CellGridState
 {
-    private Unit _unit;
+    public Unit _unit;
     private List<Cell> _pathsInRange;
     private List<Unit> _unitsInRange;
 
@@ -16,6 +18,7 @@ class CellGridStateUnitSelected : CellGridState
         _unitsInRange = new List<Unit>();
     }
 
+	//Esto hace que se mueva
     public override void OnCellClicked(Cell cell)
     {
         if (_unit.isMoving)
@@ -37,11 +40,15 @@ class CellGridStateUnitSelected : CellGridState
             _cellGrid.CellGridState = new CellGridStateUnitSelected(_cellGrid, _unit);
         }
     }
+	//Esto hace que ataque o cambie el personaje seleccionado
     public override void OnUnitClicked(Unit unit)
     {
-        if (unit.Equals(_unit) || unit.isMoving)
-            return;
 
+		if (unit.Equals (_unit) || unit.isMoving) {
+			return;
+		}
+		//Aqui hace el ataque: mira si dos unidades (la actual seleccionada y la nueva)
+		//son distintas, y por lo tanto hace el ataque si dispone de puntos de acción suficientes.
         if (_unitsInRange.Contains(unit) && _unit.ActionPoints > 0)
         {
             _unit.DealDamage(unit);
