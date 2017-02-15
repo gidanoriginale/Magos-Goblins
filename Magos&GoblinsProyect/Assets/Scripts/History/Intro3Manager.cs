@@ -16,7 +16,7 @@ public class Intro3Manager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetKeyDown (KeyCode.Space) || Input.GetMouseButtonDown(0)) {
+		if (Input.GetKeyDown (KeyCode.Space) || Input.GetMouseButtonDown(0) || Input.GetKeyDown (KeyCode.Return)) {
 
 			introText.text = "Ten of them pounce to you all!";
 			Invoke ("nextPartOk", 0.5f);

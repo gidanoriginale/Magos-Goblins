@@ -16,7 +16,7 @@ public class Interlude : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetKeyDown (KeyCode.Space) || Input.GetMouseButtonDown(0)) {
+		if (Input.GetKeyDown (KeyCode.Space) || Input.GetMouseButtonDown(0) || Input.GetKeyDown (KeyCode.Return)) {
 
 			introText.text = "Once in the center of Svelge, you see some villagers being attacked by a pair of orcs. You decide to help them and fight the orcs.";
 			Invoke ("nextPartOk", 0.5f);

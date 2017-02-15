@@ -17,7 +17,7 @@ public class Intro2Manager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetKeyDown (KeyCode.Space) || Input.GetMouseButtonDown(0)) {
+		if (Input.GetKeyDown (KeyCode.Space) || Input.GetMouseButtonDown(0) || Input.GetKeyDown (KeyCode.Return)) {
 
 			introText.text = "The mission is about fighting a goblin invasion that is reaching the frontier town Svelge.";
 			Invoke ("nextPartOk", 0.5f);
