@@ -35,9 +35,11 @@ class CellGridStateUnitSelected : CellGridState
         }
         else
         {
-            var path = _unit.FindPath(_cellGrid.Cells, cell);
-            _unit.Move(cell,path);
-            _cellGrid.CellGridState = new CellGridStateUnitSelected(_cellGrid, _unit);
+			if (!_unit.unitAttack && _unit.moveOn) {
+				var path = _unit.FindPath(_cellGrid.Cells, cell);
+				_unit.Move(cell,path);
+				_cellGrid.CellGridState = new CellGridStateUnitSelected(_cellGrid, _unit);
+			}
         }
     }
 	//Esto hace que ataque o cambie el personaje seleccionado
@@ -64,25 +66,28 @@ class CellGridStateUnitSelected : CellGridState
     public override void OnCellDeselected(Cell cell)
     {
         base.OnCellDeselected(cell);
-
-        foreach (var _cell in _pathsInRange)
-        {
-            _cell.MarkAsReachable();
-        }
-        foreach (var _cell in _cellGrid.Cells.Except(_pathsInRange))
-        {
-            _cell.UnMark();
-        }
+		if (!_unit.unitAttack && _unit.moveOn) {
+			foreach (var _cell in _pathsInRange) {
+				_cell.MarkAsReachable ();
+			}
+		
+			foreach (var _cell in _cellGrid.Cells.Except(_pathsInRange)) {
+				_cell.UnMark ();
+			}
+		}
     }
     public override void OnCellSelected(Cell cell)
     {
+
         base.OnCellSelected(cell);
         if (!_pathsInRange.Contains(cell)) return;
         var path = _unit.FindPath(_cellGrid.Cells, cell);
-        foreach (var _cell in path)
-        {
-            _cell.MarkAsPath();
-        }
+		if (!_unit.unitAttack && _unit.moveOn) {
+			foreach (var _cell in path)
+			{
+				_cell.MarkAsPath();
+			}
+		}
     }
 
     public override void OnStateEnter()
@@ -95,14 +100,17 @@ class CellGridStateUnitSelected : CellGridState
         _pathsInRange = _unit.GetAvailableDestinations(_cellGrid.Cells);
         var cellsNotInRange = _cellGrid.Cells.Except(_pathsInRange);
 
-        foreach (var cell in cellsNotInRange)
-        {
-            cell.UnMark();
-        }
-        foreach (var cell in _pathsInRange)
-        {
-            cell.MarkAsReachable();
-        }
+		if (!_unit.unitAttack && _unit.moveOn) {
+			foreach (var cell in cellsNotInRange)
+			{
+				cell.UnMark();
+			}
+			foreach (var cell in _pathsInRange)
+			{
+				cell.MarkAsReachable();
+			}
+		}
+
 
         if (_unit.ActionPoints <= 0) return;
 
@@ -125,6 +133,8 @@ class CellGridStateUnitSelected : CellGridState
     public override void OnStateExit()
     {
         _unit.OnUnitDeselected();
+		_unit.unitAttack = false;
+		_unit.moveOn = false;
         foreach (var unit in _unitsInRange)
         {
             if (unit == null) continue;

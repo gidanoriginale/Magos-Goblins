@@ -74,6 +74,7 @@ public abstract class Unit : MonoBehaviour
     /// </summary>
     public bool isMoving { get; set; }
 	public bool unitAttack;
+	public bool moveOn;
 
     private static IPathfinding _pathfinder = new AStarPathfinding();
 
@@ -83,6 +84,7 @@ public abstract class Unit : MonoBehaviour
 
 	public virtual void Initialize()
     {
+		moveOn = false;
 		unitAttack = false;
         Buffs = new List<Buff>();
 
@@ -93,16 +95,18 @@ public abstract class Unit : MonoBehaviour
         TotalActionPoints = ActionPoints;
     }
 
-	public void moveUnit() {
+	public void moveUnit () {
 		if (UnitClicked != null) {
+			moveOn = true;
 			UnitClicked.Invoke(this, new EventArgs());
 		}
 	}
 
 	public void UnitAttack () {
-
-		unitAttack = true;
-		UnitClicked.Invoke(this, new EventArgs());
+		if (UnitClicked != null) {
+			unitAttack = true;
+			UnitClicked.Invoke(this, new EventArgs());
+		}
 	}
 
     public virtual void OnMouseDown()
@@ -171,6 +175,12 @@ public abstract class Unit : MonoBehaviour
     /// </summary>
     public virtual void OnUnitSelected()
     {
+		GameObject menuManager = GameObject.Find ("BattleMenuCanvas");
+		if (menuManager != null) {
+			if (menuManager.GetComponent<Canvas>().enabled == true) {
+				print ("Nope");;
+			}
+		}
         SetState(new UnitStateMarkedAsSelected(this));
 		if (UnitSelected != null) {
 			UnitSelected.Invoke(this, new EventArgs());
@@ -212,7 +222,6 @@ public abstract class Unit : MonoBehaviour
             return;
         if (!IsUnitAttackable(other, Cell))
             return;
-
         MarkAsAttacking(other);
         ActionPoints--;
 		other.Defend(this, UnityEngine.Random.Range(WeaponDiceNumber,WeaponDiceNumber*WeaponDiceSize)+WeaponBonusDmg);
@@ -243,7 +252,7 @@ public abstract class Unit : MonoBehaviour
 
     public virtual void Move(Cell destinationCell, List<Cell> path)
     {
-        if (isMoving)
+        if (isMoving || unitAttack || !moveOn)
             return;
 
         var totalMovementCost = path.Sum(h => h.MovementCost);
@@ -262,7 +271,8 @@ public abstract class Unit : MonoBehaviour
             transform.position = Cell.transform.position;
 
         if (UnitMoved != null)
-            UnitMoved.Invoke(this, new MovementEventArgs(Cell, destinationCell, path));    
+            UnitMoved.Invoke(this, new MovementEventArgs(Cell, destinationCell, path));   
+		moveOn = false;
     }
     protected virtual IEnumerator MovementAnimation(List<Cell> path)
     {

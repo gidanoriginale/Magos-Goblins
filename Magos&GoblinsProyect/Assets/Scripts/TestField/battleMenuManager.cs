@@ -15,12 +15,12 @@ public class battleMenuManager : MonoBehaviour {
 
 	void Start () {
 		GetComponent<Canvas> ().enabled = false;
-//		unitIsAttacking = false;
 	}
 
 	void Update () {
 
-		if (unitSelected != null && cellGrid.GetComponent<CellGrid>().CurrentPlayerNumber == unitSelected.GetComponent<Unit>().PlayerNumber && unitSelected.GetComponent<Unit> ().unitAttack == false) {
+		if (unitSelected != null && cellGrid.GetComponent<CellGrid>().CurrentPlayerNumber == unitSelected.GetComponent<Unit>().PlayerNumber && 
+			!unitSelected.GetComponent<Unit> ().unitAttack && unitSelected.GetComponent<GenericUnit>().ActionPoints != 0  && !unitSelected.GetComponent<Unit>().moveOn) {
 			GetComponent<Canvas> ().enabled = true;
 			if (menuPanel != null) {
 				menuPanel.GetComponent<RectTransform>().position = new Vector2 (unitSelected.transform.position.x, unitSelected.transform.position.y+0.4f);
@@ -30,17 +30,11 @@ public class battleMenuManager : MonoBehaviour {
 				GetComponent<Canvas> ().enabled = false;
 			}
 		}
-
-//		if (Input.GetMouseButtonDown(0) && unitIsAttacking && unitSelected != null) {
-//			unitSelected.GetComponent<Unit> ().DealDamage();
-//		}
 	}
 
-	public void MoveUnit () {
-
-		if (unitSelected != null) {
-			unitSelected.GetComponent<Unit> ().moveUnit();
-		}
+	public void UnitMoving() {
+		unitSelected.GetComponent<Unit> ().moveUnit ();
+		GetComponent<Canvas> ().enabled = false;
 	}
 
 	public void UnitAttacking () {
