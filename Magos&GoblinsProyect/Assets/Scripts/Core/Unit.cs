@@ -175,12 +175,6 @@ public abstract class Unit : MonoBehaviour
     /// </summary>
     public virtual void OnUnitSelected()
     {
-		GameObject menuManager = GameObject.Find ("BattleMenuCanvas");
-		if (menuManager != null) {
-			if (menuManager.GetComponent<Canvas>().enabled == true) {
-				print ("Nope");;
-			}
-		}
         SetState(new UnitStateMarkedAsSelected(this));
 		if (UnitSelected != null) {
 			UnitSelected.Invoke(this, new EventArgs());
