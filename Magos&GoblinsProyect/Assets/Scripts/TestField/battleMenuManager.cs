@@ -20,10 +20,10 @@ public class battleMenuManager : MonoBehaviour {
 
 	void Update () {
 
-		if (unitSelected != null && cellGrid.GetComponent<CellGrid>().CurrentPlayerNumber == unitSelected.GetComponent<Unit>().PlayerNumber) {
+		if (unitSelected != null && cellGrid.GetComponent<CellGrid>().CurrentPlayerNumber == unitSelected.GetComponent<Unit>().PlayerNumber && unitSelected.GetComponent<Unit> ().unitAttack == false) {
 			GetComponent<Canvas> ().enabled = true;
 			if (menuPanel != null) {
-				menuPanel.GetComponent<RectTransform>().position = new Vector2 (unitSelected.transform.position.x, unitSelected.transform.position.y+0.8f);
+				menuPanel.GetComponent<RectTransform>().position = new Vector2 (unitSelected.transform.position.x, unitSelected.transform.position.y+0.4f);
 			}
 		} else {
 			if (GetComponent<Canvas> ().enabled == true) {
@@ -46,6 +46,7 @@ public class battleMenuManager : MonoBehaviour {
 	public void UnitAttacking () {
 	
 		unitSelected.GetComponent<Unit> ().UnitAttack();
+		GetComponent<Canvas> ().enabled = false;
 
 	}
 }
