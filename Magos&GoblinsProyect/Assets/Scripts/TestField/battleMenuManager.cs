@@ -20,7 +20,7 @@ public class battleMenuManager : MonoBehaviour {
 	void Update () {
 
 		if (unitSelected != null && cellGrid.GetComponent<CellGrid>().CurrentPlayerNumber == unitSelected.GetComponent<Unit>().PlayerNumber && 
-			!unitSelected.GetComponent<Unit> ().unitAttack && unitSelected.GetComponent<GenericUnit>().ActionPoints != 0  && !unitSelected.GetComponent<Unit>().moveOn) {
+			!unitSelected.GetComponent<Unit> ().unitAttack && !unitSelected.GetComponent<Unit>().moveOn) {
 			GetComponent<Canvas> ().enabled = true;
 			if (menuPanel != null) {
 				menuPanel.GetComponent<RectTransform>().position = new Vector2 (unitSelected.transform.position.x, unitSelected.transform.position.y+0.4f);
