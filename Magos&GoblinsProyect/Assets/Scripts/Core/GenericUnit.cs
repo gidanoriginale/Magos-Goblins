@@ -97,7 +97,7 @@ public class GenericUnit : Unit
     }
     public override void MarkAsReachableEnemy()
     {
-        SetColor(new Color(1,0.8f,0.8f));
+        SetColor(new Color(1,0,0));
     }
     public override void MarkAsSelected()
     {

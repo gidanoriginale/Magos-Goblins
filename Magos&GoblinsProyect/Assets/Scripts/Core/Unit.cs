@@ -73,7 +73,7 @@ public abstract class Unit : MonoBehaviour
     /// Indicates if movement animation is playing.
     /// </summary>
     public bool isMoving { get; set; }
-	public bool unitIsAttacking;
+	public bool unitAttack;
 
     private static IPathfinding _pathfinder = new AStarPathfinding();
 
@@ -83,7 +83,7 @@ public abstract class Unit : MonoBehaviour
 
 	public virtual void Initialize()
     {
-		unitIsAttacking = false;
+		unitAttack = false;
         Buffs = new List<Buff>();
 
         UnitState = new UnitStateNormal(this);
@@ -99,10 +99,10 @@ public abstract class Unit : MonoBehaviour
 		}
 	}
 
-	public void unitDealsDamage() {
-		if (UnitClicked != null) {
-			UnitClicked.Invoke(this, new EventArgs());
-		}
+	public void UnitAttack () {
+
+		unitAttack = true;
+		UnitClicked.Invoke(this, new EventArgs());
 	}
 
     public virtual void OnMouseDown()
@@ -112,14 +112,16 @@ public abstract class Unit : MonoBehaviour
 			if (menuManager != null) {
 				GameObject cellGrid = GameObject.Find ("CellGrid");
 				if (cellGrid != null) {
-					if (cellGrid.GetComponent<CellGrid>().CurrentPlayerNumber == this.PlayerNumber) {
+					if (cellGrid.GetComponent<CellGrid> ().CurrentPlayerNumber == this.PlayerNumber) {
 						menuManager.GetComponent<battleMenuManager> ().unitSelected = this.gameObject;
+					} 
+					if(cellGrid.GetComponent<CellGrid> ().CurrentPlayerNumber != this.PlayerNumber){
+						menuManager.GetComponent<battleMenuManager> ().unitClicked = this.gameObject;
 					}
 				}
 			}
-//			if (unitIsAttacking) {
-//				UnitClicked.Invoke(this, new EventArgs());
-//			}
+				
+			UnitClicked.Invoke(this, new EventArgs());
 		}
     }
     protected virtual void OnMouseEnter()
@@ -200,7 +202,10 @@ public abstract class Unit : MonoBehaviour
     /// Method deals damage to unit given as parameter.
     /// </summary>
     public virtual void DealDamage(Unit other)
-    {
+    {			
+		if (!unitAttack) 
+			return;
+		unitAttack = false;
         if (isMoving)
             return;
         if (ActionPoints == 0)
@@ -211,7 +216,6 @@ public abstract class Unit : MonoBehaviour
         MarkAsAttacking(other);
         ActionPoints--;
 		other.Defend(this, UnityEngine.Random.Range(WeaponDiceNumber,WeaponDiceNumber*WeaponDiceSize)+WeaponBonusDmg);
-
 		if (ActionPoints <= 0 && MovementPoints <=0)
         {
             SetState(new UnitStateMarkedAsFinished(this));

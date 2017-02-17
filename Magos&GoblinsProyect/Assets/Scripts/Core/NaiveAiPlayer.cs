@@ -41,6 +41,7 @@ public class NaiveAiPlayer : Player
             if (unitsInRange.Count != 0)
             {
                 int index = _rnd.Next(0, unitsInRange.Count);
+				unit.GetComponent<Unit> ().UnitAttack();
                 unit.DealDamage(unitsInRange[index]);
                 yield return new WaitForSeconds(0.5f);
                 continue;
@@ -103,6 +104,7 @@ public class NaiveAiPlayer : Player
                 var enemyCell = enemyUnit.Cell;
                 if (unit.IsUnitAttackable(enemyUnit,unit.Cell))
                 { 
+					unit.GetComponent<Unit> ().UnitAttack();
                     unit.DealDamage(enemyUnit);
                     yield return new WaitForSeconds(0.5f);
                     break;

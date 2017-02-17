@@ -2,15 +2,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Linq;
+using System;
 
 public class battleMenuManager : MonoBehaviour {
 	
 	public GameObject unitSelected;
+	public GameObject unitClicked;
 	public GameObject menuPanel;
 	public GameObject cellGrid;
+	public bool unitIsAttacking;
 
 	void Start () {
 		GetComponent<Canvas> ().enabled = false;
+//		unitIsAttacking = false;
 	}
 
 	void Update () {
@@ -25,5 +30,22 @@ public class battleMenuManager : MonoBehaviour {
 				GetComponent<Canvas> ().enabled = false;
 			}
 		}
+
+//		if (Input.GetMouseButtonDown(0) && unitIsAttacking && unitSelected != null) {
+//			unitSelected.GetComponent<Unit> ().DealDamage();
+//		}
+	}
+
+	public void MoveUnit () {
+
+		if (unitSelected != null) {
+			unitSelected.GetComponent<Unit> ().moveUnit();
+		}
+	}
+
+	public void UnitAttacking () {
+	
+		unitSelected.GetComponent<Unit> ().UnitAttack();
+
 	}
 }
