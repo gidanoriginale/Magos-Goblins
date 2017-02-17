@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 
 public class PartyGenerator : MonoBehaviour {
 
@@ -19,7 +21,11 @@ public class PartyGenerator : MonoBehaviour {
 	public ArrayList partyGen;
 	public GameObject unitParent;
 	private GameObject[] enemies;
+	private GameObject[] players;
 	public GameObject Canvas;
+
+	public Text winText;
+	public Text loseText;
 
 	// Use this for initialization
 	void Start () {
@@ -53,6 +59,17 @@ public class PartyGenerator : MonoBehaviour {
 		
 			Invoke ("NextLvl", 1.5f);
 			Canvas.GetComponent<Canvas> ().enabled = true;
+			winText.GetComponent<Text> ().enabled = true;
+		}
+
+		players = GameObject.FindGameObjectsWithTag ("Player");
+
+		if (players.Length < 1) {
+			
+			Invoke ("TitleScreenLoad", 1.5f);
+			Canvas.GetComponent<Canvas> ().enabled = true;
+			loseText.GetComponent<Text> ().enabled = true;
+
 		}
 	}
 
@@ -64,5 +81,9 @@ public class PartyGenerator : MonoBehaviour {
 			DontDestroyOnLoad (partyManager);
 		}
 		SceneManager.LoadScene ("Interlude");
+	}
+	void TitleScreenLoad() {
+
+		SceneManager.LoadScene ("TitleScreen");
 	}
 }

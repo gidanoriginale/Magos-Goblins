@@ -35,21 +35,6 @@ public class NextGuiController : MonoBehaviour
         }
     }
 
- //   private void OnTurnEnded(object sender, EventArgs e)
-   // {
- //       NextTurnButton.interactable = ((sender as CellGrid).CurrentPlayer is HumanPlayer);
-   // }
-//    private void OnGameEnded(object sender, EventArgs e)
-//    {
-//        _gameOverPanel = Instantiate(GameOverPanel);
-////        _gameOverPanel.transform.Find("InfoText").GetComponent<Text>().text = "Player " + ((sender as CellGrid).CurrentPlayerNumber + 1) + "\nwins!";
-//        
-// //       _gameOverPanel.transform.Find("DismissButton").GetComponent<Button>().onClick.AddListener(DismissPanel);
-// 
-//        _gameOverPanel.GetComponent<RectTransform>().SetParent(Canvas.GetComponent<RectTransform>(), false);
-//
-//    }
-
     private void OnUnitAttacked(object sender, AttackEventArgs e)
     {
         if (!(CellGrid.CurrentPlayer is HumanPlayer)) return;
@@ -82,17 +67,7 @@ public class NextGuiController : MonoBehaviour
         _infoPanel.GetComponent<RectTransform>().SetParent(Canvas.GetComponent<RectTransform>(),false);
     }
 
-   // public void DismissPanel()
-    //{
- //       Destroy(_gameOverPanel);
-    //}
-
 	void OnGUI () {
-
-		if(GUI.Button(new Rect(Screen.width-120, 10, 100, 50),"Restart")){
-
-			SceneManager.LoadScene("Scenes/FirstFight");
-		}
 
 		if(GUI.Button(new Rect(20, 10, 100, 50),"End Turn")){
 
